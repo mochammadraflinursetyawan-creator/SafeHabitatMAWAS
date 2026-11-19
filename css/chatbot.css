@@ -1,0 +1,717 @@
+/* ==========================================================================
+   MAWAS FAQ Widget - "Tanya MAWAS" (css/chatbot.css)
+   Bespoke Orangutan Mascot Live Interactive Chat & FAQ System
+   ========================================================================== */
+
+:root {
+  --mawas-accent: #C2410C;
+  --mawas-accent-hover: #A8360A;
+  --mawas-accent-dark: #9A3412;
+  --mawas-text-primary: #1F1611;
+  --mawas-text-body: #3F332B;
+  --mawas-text-secondary: #6B5B50;
+  --mawas-border: #D9CCC0;
+  --mawas-divider: #F0E6DC;
+  --mawas-bg-header: #FFF8F1;
+  --mawas-bg-footer: #FFFBF7;
+  --mawas-bg-row-hover: #FFF4EA;
+  --mawas-tag-bg: #FFF1E4;
+}
+
+/* ==========================================================================
+   1. Launcher Button (Pill 60px)
+   ========================================================================== */
+.mawas-launcher-btn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  height: 60px;
+  border-radius: 30px;
+  background-color: var(--mawas-accent);
+  box-shadow: 0 8px 24px rgba(194, 65, 12, 0.35);
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 22px 8px 8px;
+  border: none;
+  cursor: pointer;
+  z-index: 998;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+              background-color 0.2s ease,
+              box-shadow 0.2s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
+
+.mawas-launcher-btn:hover {
+  background-color: var(--mawas-accent-hover);
+  transform: scale(1.02);
+  box-shadow: 0 10px 28px rgba(194, 65, 12, 0.45);
+}
+
+.mawas-launcher-btn:focus-visible {
+  outline: 3px solid #ffffff;
+  outline-offset: 3px;
+}
+
+.mawas-launcher-btn:active {
+  transform: scale(0.97);
+}
+
+.mawas-launcher-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: #FFF8F1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.mawas-launcher-avatar svg {
+  width: 44px;
+  height: 44px;
+  display: block;
+}
+
+.mawas-launcher-label {
+  font-family: 'Poppins', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: #ffffff;
+  white-space: nowrap;
+}
+
+/* ==========================================================================
+   2. Teaser Bubble
+   ========================================================================== */
+.mawas-teaser-bubble {
+  position: fixed;
+  bottom: 94px;
+  right: 24px;
+  max-width: 250px;
+  background-color: #ffffff;
+  border: 1px solid var(--mawas-border);
+  border-radius: 16px 16px 4px 16px;
+  box-shadow: 0 8px 24px rgba(31, 22, 17, 0.12);
+  padding: 14px 16px;
+  z-index: 997;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px) scale(0.96);
+  transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0.25s ease;
+  user-select: none;
+}
+
+.mawas-teaser-bubble.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+
+.mawas-teaser-bubble:hover {
+  box-shadow: 0 10px 28px rgba(31, 22, 17, 0.16);
+}
+
+.mawas-teaser-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.mawas-teaser-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--mawas-text-primary);
+  margin: 0;
+  line-height: 1.35;
+}
+
+.mawas-teaser-close {
+  background: none;
+  border: none;
+  color: var(--mawas-text-secondary);
+  font-size: 16px;
+  line-height: 1;
+  padding: 0 2px;
+  cursor: pointer;
+  transition: color 0.15s ease;
+  margin-top: -2px;
+  margin-right: -2px;
+}
+
+.mawas-teaser-close:hover {
+  color: var(--mawas-accent);
+}
+
+.mawas-teaser-desc {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12.5px;
+  color: var(--mawas-text-secondary);
+  line-height: 1.45;
+  margin: 0;
+}
+
+/* ==========================================================================
+   3. Panel Container
+   ========================================================================== */
+.mawas-panel {
+  position: fixed;
+  bottom: 94px;
+  right: 24px;
+  width: 400px;
+  max-width: calc(100vw - 24px);
+  height: 680px;
+  max-height: calc(100vh - 48px);
+  background-color: #ffffff;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(31, 22, 17, 0.18), 0 4px 12px rgba(31, 22, 17, 0.08);
+  border: 1px solid var(--mawas-border);
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(14px) scale(0.97);
+  transform-origin: bottom right;
+  transition: opacity 0.18s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.18s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0.18s ease;
+  box-sizing: border-box;
+}
+
+.mawas-panel.is-open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+
+/* Panel Header */
+.mawas-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 12px 14px 18px;
+  background-color: var(--mawas-bg-header);
+  border-bottom: 1px solid var(--mawas-divider);
+  flex-shrink: 0;
+}
+
+.mawas-panel-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.mawas-panel-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background-color: var(--mawas-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.mawas-panel-avatar svg {
+  width: 42px;
+  height: 42px;
+  display: block;
+}
+
+.mawas-panel-titles {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.mawas-panel-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--mawas-text-primary);
+  margin: 0;
+  line-height: 1.25;
+}
+
+.mawas-panel-subtitle {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+  color: var(--mawas-text-secondary);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.mawas-panel-close {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: var(--mawas-text-secondary);
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+  outline: none;
+}
+
+.mawas-panel-close:hover {
+  background-color: var(--mawas-divider);
+  color: var(--mawas-text-primary);
+}
+
+/* ==========================================================================
+   4. Chat Messages Scroll Area
+   ========================================================================== */
+.mawas-chat-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  background-color: #faf7f5;
+  scrollbar-width: thin;
+  scrollbar-color: #D9CCC0 transparent;
+  box-sizing: border-box;
+}
+
+.mawas-chat-body::-webkit-scrollbar {
+  width: 5px;
+}
+
+.mawas-chat-body::-webkit-scrollbar-thumb {
+  background: var(--mawas-border);
+  border-radius: 4px;
+}
+
+/* Welcome Banner (SIGAP Style) */
+.mawas-welcome-banner {
+  background-color: #ffffff;
+  border: 1px solid var(--mawas-divider);
+  border-radius: 14px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 2px 8px rgba(31, 22, 17, 0.04);
+}
+
+.mawas-banner-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: var(--mawas-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.mawas-banner-avatar svg {
+  width: 44px;
+  height: 44px;
+}
+
+.mawas-banner-text {
+  font-family: 'Poppins', sans-serif;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--mawas-text-primary);
+  line-height: 1.35;
+  margin: 0;
+}
+
+/* Category Filter Chips */
+.mawas-chips-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.mawas-chip {
+  height: 34px;
+  border-radius: 17px;
+  padding: 0 12px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  border: 1px solid var(--mawas-border);
+  background-color: #ffffff;
+  color: var(--mawas-text-body);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+  outline: none;
+  user-select: none;
+}
+
+.mawas-chip:hover {
+  background-color: var(--mawas-bg-row-hover);
+  border-color: var(--mawas-accent);
+  color: var(--mawas-accent-dark);
+}
+
+.mawas-chip[aria-pressed="true"] {
+  background-color: var(--mawas-accent);
+  border-color: var(--mawas-accent);
+  color: #ffffff;
+}
+
+/* Quick Question Cards Container (Like Reference Screenshot) */
+.mawas-quick-cards-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mawas-quick-card {
+  background-color: #ffffff;
+  border: 1px solid var(--mawas-border);
+  border-radius: 10px;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.15s ease, background-color 0.15s ease, transform 0.15s ease;
+  outline: none;
+  box-shadow: 0 1px 3px rgba(31, 22, 17, 0.03);
+}
+
+.mawas-quick-card:hover {
+  background-color: var(--mawas-bg-row-hover);
+  border-color: var(--mawas-accent);
+  transform: translateX(2px);
+}
+
+.mawas-quick-card:focus-visible {
+  outline: 2px solid var(--mawas-accent);
+}
+
+.mawas-quick-card-text {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--mawas-text-primary);
+  line-height: 1.4;
+  margin: 0;
+}
+
+.mawas-quick-card-chevron {
+  color: #c2410c;
+  font-size: 13px;
+  flex-shrink: 0;
+  transition: transform 0.15s ease;
+}
+
+.mawas-quick-card:hover .mawas-quick-card-chevron {
+  transform: translateX(2px);
+}
+
+/* Chat Message Bubbles */
+.mawas-msg {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  animation: mawasMsgFade 0.2s ease;
+}
+
+@keyframes mawasMsgFade {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.mawas-msg.user {
+  justify-content: flex-end;
+}
+
+.mawas-msg-bubble {
+  max-width: 82%;
+  padding: 10px 14px;
+  border-radius: 14px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 13.5px;
+  line-height: 1.55;
+  box-sizing: border-box;
+}
+
+.mawas-msg.user .mawas-msg-bubble {
+  background-color: var(--mawas-accent);
+  color: #ffffff;
+  border-radius: 14px 14px 3px 14px;
+  box-shadow: 0 2px 8px rgba(194, 65, 12, 0.25);
+}
+
+.mawas-msg.bot .mawas-msg-bubble {
+  background-color: #ffffff;
+  color: var(--mawas-text-primary);
+  border: 1px solid var(--mawas-divider);
+  border-radius: 14px 14px 14px 3px;
+  box-shadow: 0 2px 8px rgba(31, 22, 17, 0.05);
+}
+
+.mawas-msg-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: var(--mawas-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.mawas-msg-avatar svg {
+  width: 28px;
+  height: 28px;
+}
+
+/* Typing Indicator Animation */
+.mawas-typing-indicator {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 14px;
+  background-color: #ffffff;
+  border: 1px solid var(--mawas-divider);
+  border-radius: 14px;
+  width: fit-content;
+}
+
+.mawas-typing-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--mawas-accent);
+  animation: typingBounce 1.2s infinite ease-in-out;
+}
+
+.mawas-typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.mawas-typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typingBounce {
+  0%, 80%, 100% { transform: translateY(0); opacity: 0.4; }
+  40% { transform: translateY(-5px); opacity: 1; }
+}
+
+/* Follow-up Suggestions Chips */
+.mawas-followup-chips {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 8px;
+  padding-left: 36px;
+}
+
+.mawas-followup-pill {
+  background-color: #ffffff;
+  border: 1px solid var(--mawas-border);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--mawas-accent-dark);
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.15s ease;
+  outline: none;
+}
+
+.mawas-followup-pill:hover {
+  background-color: var(--mawas-bg-row-hover);
+  border-color: var(--mawas-accent);
+}
+
+/* ==========================================================================
+   5. Chat Input Bar (Bottom)
+   ========================================================================== */
+.mawas-input-bar-container {
+  padding: 10px 16px 12px;
+  background-color: var(--mawas-bg-footer);
+  border-top: 1px solid var(--mawas-divider);
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.mawas-input-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.mawas-chat-input {
+  width: 100%;
+  height: 44px;
+  border-radius: 22px;
+  border: 1px solid var(--mawas-border);
+  padding: 0 46px 0 16px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 13.5px;
+  color: var(--mawas-text-primary);
+  background-color: #ffffff;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.mawas-chat-input:focus {
+  border-color: var(--mawas-accent);
+  box-shadow: 0 0 0 3px rgba(194, 65, 12, 0.15);
+}
+
+.mawas-send-btn {
+  position: absolute;
+  right: 5px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background-color: var(--mawas-accent);
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  transition: background-color 0.15s ease, transform 0.15s ease;
+  outline: none;
+}
+
+.mawas-send-btn:hover {
+  background-color: var(--mawas-accent-hover);
+  transform: scale(1.05);
+}
+
+.mawas-send-btn:active {
+  transform: scale(0.95);
+}
+
+.mawas-send-btn:disabled {
+  background-color: #cbd5e1;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Footer Links */
+.mawas-footer-note {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 11.5px;
+  color: var(--mawas-text-secondary);
+  text-align: center;
+  margin: 0;
+  line-height: 1.35;
+}
+
+.mawas-footer-note a {
+  color: var(--mawas-accent);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.mawas-footer-note a:hover {
+  text-decoration: underline;
+}
+
+/* Backdrop Overlay */
+.mawas-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(31, 22, 17, 0.4);
+  backdrop-filter: blur(2px);
+  z-index: 999;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.mawas-backdrop.is-visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ==========================================================================
+   6. Mobile & Responsive Layout
+   ========================================================================== */
+@media (max-width: 480px) {
+  .mawas-launcher-btn {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    padding: 0;
+    justify-content: center;
+    bottom: 16px;
+    right: 16px;
+  }
+
+  .mawas-launcher-label {
+    display: none;
+  }
+
+  .mawas-teaser-bubble {
+    right: 16px;
+    bottom: 84px;
+  }
+
+  .mawas-panel {
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-width: 100%;
+    height: 90vh;
+    max-height: 90vh;
+    border-radius: 20px 20px 0 0;
+    transform: translateY(100%);
+  }
+
+  .mawas-panel.is-open {
+    transform: translateY(0);
+  }
+}
+
+/* ==========================================================================
+   7. Accessibility & Reduced Motion
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

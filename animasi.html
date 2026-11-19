@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Animation | MAWAS Geospatial Platform</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap"
+    rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body style="background: #fdfdfd;">
+
+  <!-- Minimalist Navbar (JagaGajah Style) -->
+  <nav class="site-nav">
+    <a href="index.html" class="nav-brand">MAWAS</a>
+
+    <ul class="nav-menu">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="peta.html">Maps</a></li>
+      <li class="active"><a href="animasi.html">Animation</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+  </nav>
+
+  <!-- Clean GIF Showcase (Without Sliders / Buttons) -->
+  <main class="animation-page-wrapper">
+    <div class="anim-header">
+      <h1 class="anim-title">Animasi Spasiotemporal Dinamika Habitat Orangutan</h1>
+      <div class="anim-period-badge">
+        Periode Perekaman: 1 Mei 2019 – 30 Oktober 2019
+      </div>
+      <p class="anim-desc">
+        Visualisasi animasi runut waktu pergerakan kabut asap kebakaran hutan dan lahan (karhutla) serta dinamika
+        penyusutan habitat sementara orangutan di bentang alam Kalimantan.
+      </p>
+    </div>
+
+    <!-- GIF Container (Auto-looping Animated Image) -->
+    <div class="gif-frame-container" id="gif-container">
+      <img id="gif-display" class="gif-image" src="assets/animations/mawas_animation.gif"
+        onerror="this.onerror=null; this.src='assets/images/methodology-flowchart.jpg';"
+        alt="Animasi Spasiotemporal Habitat Orangutan 1 Mei 2019 - 30 Oktober 2019">
+    </div>
+
+    <!-- Dynamic Legend & Brief Academic Context -->
+    <div class="anim-notes-box">
+      <h4>Interpretasi Dinamika (Mei – Oktober 2019)</h4>
+      <p>
+        Animasi ini merekam fluktuasi spasial selama 6 bulan krisis kebakaran El-Niño 2019. Pada bulan Mei–Juni, habitat
+        relatif stabil di kubah gambut Mawas dan Sebangau. Memasuki puncak kekeringan Juli–September, lonjakan titik api
+        dan emisi PM2.5 memicu kabut asap lintas batas (<em>transboundary haze</em>) yang menekan luasan habitat
+        sementara orangutan hingga terkonsentrasi di kantong-kantong inti kanopi yang tersisa.
+      </p>
+
+      <!-- Optional Local GIF Selector (discreet) -->
+      <div
+        style="margin-top: 14px; padding-top: 10px; border-top: 1px dashed var(--border-color); display: flex; align-items: center; justify-content: space-between; font-size: 0.84rem; color: #6b7280;">
+        <span>Format berkas: <code>assets/animations/mawas_animation.gif</code></span>
+        <label for="select-gif" style="cursor: pointer; color: var(--primary-green); font-weight: 600;">
+          Pilih berkas GIF lain &rarr;
+        </label>
+        <input type="file" id="select-gif" accept="image/gif" style="display: none;">
+      </div>
+    </div>
+  </main>
+
+  <script src="js/config.js"></script>
+  <script>
+    // File selector helper if user wants to preview their GIF immediately
+    const input = document.getElementById('select-gif');
+    const img = document.getElementById('gif-display');
+    if (input && img) {
+      input.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (file) {
+          img.src = URL.createObjectURL(file);
+        }
+      });
+    }
+  </script>
+</body>
+
+</html>

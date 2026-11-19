@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-i18n="about_page_title">MAWAS | About</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Core & About Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/about.css?v=6">
+</head>
+
+<body>
+
+  <!-- Minimalist Navbar -->
+  <nav class="site-nav">
+    <a href="index.html" class="nav-brand">MAWAS</a>
+
+    <div class="nav-right-container">
+      <ul class="nav-menu">
+        <li><a href="index.html" data-i18n="nav_home">Home</a></li>
+        <li><a href="peta.html" data-i18n="nav_maps">Maps</a></li>
+        <li><a href="dashboard.html" data-i18n="nav_dashboard">Dashboard</a></li>
+        <li><a href="pipeline.html" data-i18n="nav_pipeline">Pipeline</a></li>
+        <li class="active"><a href="about.html" data-i18n="nav_about">About</a></li>
+      </ul>
+
+      <!-- Language Switcher (ID / EN) -->
+      <div class="lang-switch-box">
+        <button class="lang-btn active" id="btn-lang-id" data-lang="id" title="Bahasa Indonesia">ID</button>
+        <span class="lang-divider">/</span>
+        <button class="lang-btn" id="btn-lang-en" data-lang="en" title="English">EN</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- About Main Container -->
+  <main class="about-fullscreen-wrapper">
+
+    <!-- ==========================================
+         SECTION 1: OUR TEAM (TIM KAMI)
+         ========================================== -->
+    <section class="about-row-section" id="about-team">
+      <div class="about-col-meta">
+        <h2 class="about-sec-title" data-i18n="about_team_title">Tim Kami</h2>
+        <p class="about-sec-lead" data-i18n="about_team_intro">
+          Kami adalah tim yang mengembangkan MAWAS, pemodelan geospasial berbasis cloud untuk memprioritaskan habitat aman orangutan Kalimantan saat kebakaran dan kabut asap lintas batas.
+        </p>
+      </div>
+
+      <div class="about-col-content">
+        <div class="team-members-row" style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 28px; justify-content: flex-start; align-items: flex-start;">
+          <!-- Member 1: Fayyadh Faliha Faruq -->
+          <div class="team-member-item" style="display: flex; flex-direction: column; align-items: center; text-align: center; flex: 0 0 135px; width: 135px;">
+            <div class="team-photo-wrap">
+              <img class="team-photo-img" src="About/Fayyadh%20Faliha%20Faruq.png" alt="Fayyadh Faliha Faruq">
+            </div>
+            <h3 class="team-name">Fayyadh Faliha Faruq</h3>
+          </div>
+
+          <!-- Member 2: Mochammad Rafli Nur Setyawan -->
+          <div class="team-member-item" style="display: flex; flex-direction: column; align-items: center; text-align: center; flex: 0 0 135px; width: 135px;">
+            <div class="team-photo-wrap">
+              <img class="team-photo-img" src="About/Mochammad%20Rafli%20Nur%20Setyawan.png" alt="Mochammad Rafli Nur Setyawan">
+            </div>
+            <h3 class="team-name">Mochammad Rafli Nur Setyawan</h3>
+          </div>
+
+          <!-- Member 3: Naura Aliya Titania -->
+          <div class="team-member-item" style="display: flex; flex-direction: column; align-items: center; text-align: center; flex: 0 0 135px; width: 135px;">
+            <div class="team-photo-wrap">
+              <img class="team-photo-img photo-naura" src="About/Naura%20Aliya%20Titania.png" alt="Naura Aliya Titania">
+            </div>
+            <h3 class="team-name">Naura Aliya Titania</h3>
+          </div>
+
+          <!-- Member 4: Safrina Auliya Maruni -->
+          <div class="team-member-item" style="display: flex; flex-direction: column; align-items: center; text-align: center; flex: 0 0 135px; width: 135px;">
+            <div class="team-photo-wrap">
+              <img class="team-photo-img" src="About/Safrina%20Auliya%20Maruni.png" alt="Safrina Auliya Maruni">
+            </div>
+            <h3 class="team-name">Safrina Auliya Maruni</h3>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SECTION 2: PROJECT BACKGROUND (LATAR BELAKANG PROYEK)
+         ========================================== -->
+    <section class="about-row-section" id="about-background">
+      <div class="about-col-meta">
+        <h2 class="about-sec-title" data-i18n="about_bg_title">Latar Belakang Proyek</h2>
+      </div>
+
+      <div class="about-col-content">
+        <div class="about-official-subtitle" data-i18n="about_bg_official_title">
+          MAWAS: Cloud-Based Geospatial Modeling for Orangutan Safe Habitat Prioritization under Fire and Transboundary Haze in Kalimantan
+        </div>
+        <div class="about-prose-body">
+          <p class="about-prose-p" data-i18n="about_bg_p1">
+            Pulau Kalimantan merupakan salah satu benteng pertahanan terakhir bagi orangutan Kalimantan (<em>Pongo pygmaeus</em>), spesies payung yang kini berada dalam status terancam kritis (<em>Critically Endangered</em>). Keberlangsungan hidup populasi ini menghadapi tekanan berat akibat hilangnya kanopi hutan primer dan fragmentasi habitat alami.
+          </p>
+          <p class="about-prose-p" data-i18n="about_bg_p2">
+            Pada periode 1 Mei – 30 Oktober 2019, anomali iklim El Niño memicu kebakaran hutan dan lahan gambut berskala besar di Kalimantan. Bencana ini melepaskan emisi kabut asap tebal lintas batas (<em>transboundary haze</em>) yang mencemari atmosfer regional, merusak vegetasi pakan dan sarang, serta mengancam kesehatan pernapasan satwa liar maupun masyarakat lokal.
+          </p>
+          <p class="about-prose-p" data-i18n="about_bg_p3">
+            Menghadapi krisis tersebut, MAWAS dikembangkan untuk memodelkan dan memprioritaskan habitat aman sementara (<em>temporary safe refugia</em>). Memanfaatkan komputasi awan Google Earth Engine (GEE), WebGIS interaktif, dan analisis autokorelasi spasial Getis-Ord Gi*, sistem ini mengintegrasikan kesesuaian biofisik habitat, kerentanan ekologis gambut, dan dinamika sebaran polusi udara secara objektif.
+          </p>
+        </div>
+
+        <a href="pipeline.html" class="about-btn-pipeline">
+          <i class="fas fa-project-diagram"></i>
+          <span data-i18n="about_btn_pipeline">Lihat Pipeline Analisis</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SECTION 3: SDGS CONTRIBUTION (KONTRIBUSI SDGS)
+         ========================================== -->
+    <section class="about-row-section" id="about-sdgs">
+      <div class="about-col-meta">
+        <h2 class="about-sec-title" data-i18n="about_sdgs_title">Kontribusi SDGs</h2>
+        <p class="about-sec-lead" data-i18n="about_sdgs_intro">
+          Penerapan pemodelan geospasial MAWAS berkontribusi nyata terhadap pencapaian Tujuan Pembangunan Berkelanjutan (Sustainable Development Goals).
+        </p>
+      </div>
+
+      <div class="about-col-content">
+        <div class="about-sdgs-list">
+          <!-- SDG 13 -->
+          <div class="about-sdg-row">
+            <div class="sdg-logo-wrap">
+              <img class="sdg-logo-img" src="About/LogoSDGS13.png" alt="SDG 13 - Climate Action">
+            </div>
+            <div class="sdg-info-wrap">
+              <h3 class="sdg-row-title" data-i18n="about_sdg13_title">SDG 13: Penanganan Perubahan Iklim</h3>
+              <p class="sdg-row-desc" data-i18n="about_sdg13_desc">
+                Memetakan sebaran kabut asap dan paparannya terhadap habitat selama kebakaran Mei-Oktober 2019.
+              </p>
+            </div>
+          </div>
+
+          <!-- SDG 15 -->
+          <div class="about-sdg-row">
+            <div class="sdg-logo-wrap">
+              <img class="sdg-logo-img" src="About/LogoSDGS15.png" alt="SDG 15 - Life on Land">
+            </div>
+            <div class="sdg-info-wrap">
+              <h3 class="sdg-row-title" data-i18n="about_sdg15_title">SDG 15: Ekosistem Daratan</h3>
+              <p class="sdg-row-desc" data-i18n="about_sdg15_desc">
+                Memprioritaskan habitat aman sementara bagi orangutan Kalimantan menggunakan pemodelan kesesuaian habitat.
+              </p>
+            </div>
+          </div>
+
+          <!-- SDG 17 -->
+          <div class="about-sdg-row">
+            <div class="sdg-logo-wrap">
+              <img class="sdg-logo-img" src="About/LogoSDGS17.jpg" alt="SDG 17 - Partnerships for the Goals">
+            </div>
+            <div class="sdg-info-wrap">
+              <h3 class="sdg-row-title" data-i18n="about_sdg17_title">SDG 17: Kemitraan untuk Mencapai Tujuan</h3>
+              <p class="sdg-row-desc" data-i18n="about_sdg17_desc">
+                Dibangun bersama dan menggabungkan data satelit dari berbagai sumber.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SECTION 4: SUPPORTED BY + COMPETITION (STRIP TERPADU)
+         ========================================== -->
+    <section class="about-row-section about-section-last" id="about-affiliation">
+      <div class="about-col-meta">
+        <h2 class="about-sec-title" data-i18n="about_supported_title">Dukungan & Kompetisi</h2>
+      </div>
+
+      <div class="about-col-content">
+        <div class="about-affiliation-strip">
+          <!-- Subgroup Kiri: Didukung oleh -->
+          <div class="affiliation-subgroup affiliation-left">
+            <span class="affiliation-label" data-i18n="about_supported_label">Didukung oleh</span>
+            <div class="affiliation-item">
+              <img class="affiliation-logo logo-ugm" src="About/LogoUGM.png" alt="Universitas Gadjah Mada">
+            </div>
+          </div>
+
+          <!-- Garis Pemisah Vertikal Tipis -->
+          <div class="affiliation-divider"></div>
+
+          <!-- Subgroup Kanan: Kompetisi -->
+          <div class="affiliation-subgroup affiliation-right">
+            <span class="affiliation-label" data-i18n="about_comp_label">Kompetisi</span>
+            <div class="competition-logos-row">
+              <div class="affiliation-item">
+                <img class="affiliation-logo logo-agc" src="About/LogoAGC.png" alt="ASEAN Geospatial Challenge">
+              </div>
+              <div class="affiliation-item">
+                <img class="affiliation-logo logo-big" src="About/LogoBIG.png" alt="Badan Informasi Geospasial">
+              </div>
+            </div>
+            <p class="competition-summary-desc" data-i18n="about_comp_desc">
+              MAWAS merupakan karya pemodelan geospasial yang diikutsertakan dalam ajang ASEAN Geospatial Challenge (AGC), kompetisi inovasi geospasial regional Asia Tenggara yang mendorong penerapan teknologi geospasial untuk pencapaian Sustainable Development Goals.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Multi-Language Translator Engine -->
+  <script src="js/i18n.js"></script>
+</body>
+
+</html>

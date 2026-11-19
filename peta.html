@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maps | MAWAS Geospatial Platform</title>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Leaflet CSS for Inset Map -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap"
+    rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/pixel-inspector.css">
+</head>
+
+<body style="overflow: hidden;">
+
+  <!-- Minimalist Navbar -->
+  <nav class="site-nav">
+    <a href="index.html" class="nav-brand">MAWAS</a>
+
+    <div class="nav-right-container">
+      <ul class="nav-menu">
+        <li><a href="index.html" data-i18n="nav_home">Home</a></li>
+        <li class="active"><a href="peta.html" data-i18n="nav_maps">Maps</a></li>
+        <li><a href="dashboard.html" data-i18n="nav_dashboard">Dashboard</a></li>
+        <li><a href="pipeline.html" data-i18n="nav_pipeline">Pipeline</a></li>
+        <li><a href="about.html" data-i18n="nav_about">About</a></li>
+      </ul>
+
+      <!-- Language Switcher (ID / EN) -->
+      <div class="lang-switch-box">
+        <button class="lang-btn active" id="btn-lang-id" data-lang="id" title="Bahasa Indonesia">ID</button>
+        <span class="lang-divider">/</span>
+        <button class="lang-btn" id="btn-lang-en" data-lang="en" title="English">EN</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Fullscreen WebGIS Viewport (Pas 1 Layar Penuh Seukuran Home) -->
+  <main class="map-viewport-wrapper">
+
+    <!-- Area Peta Utama (Leaflet Map Interaktif & Terintegrasi) -->
+    <div class="map-main-area">
+      <!-- Canvas Peta Utama Leaflet -->
+      <div id="main-map"></div>
+
+      <!-- Arah Orientasi Utara (ArcGIS Online Style) -->
+      <div class="map-north-arrow" data-i18n-title="tooltip_north" title="Orientasi Utara">
+        <span class="north-letter">N</span>
+        <i class="fas fa-location-arrow north-icon"></i>
+      </div>
+
+      <!-- Tombol Kontrol Putih di Sisi Kanan Peta -->
+      <div class="map-floating-tools-white">
+        <button class="tool-white-btn" data-i18n-title="tooltip_recenter" title="Pusatkan ke Kalimantan"
+          id="btn-recenter"><i class="fas fa-crosshairs"></i></button>
+        <button class="tool-white-btn" data-i18n-title="tooltip_zoom_in" title="Perbesar (Zoom In)" id="btn-zoom-in"><i
+            class="fas fa-plus"></i></button>
+        <button class="tool-white-btn" data-i18n-title="tooltip_zoom_out" title="Perkecil (Zoom Out)"
+          id="btn-zoom-out"><i class="fas fa-minus"></i></button>
+        <!-- Pengganti Tombol Layer: Alat Ukur Penggaris Jarak & Luas Poligon -->
+        <button class="tool-white-btn" data-i18n-title="tooltip_measure" title="Alat Ukur Geospasial (Jarak & Luas)"
+          id="btn-measure-tool"><i class="fas fa-ruler-combined"></i></button>
+        <!-- Fitur Swipe / Split-Screen Antar Layer -->
+        <button class="tool-white-btn" data-i18n-title="tooltip_swipe" title="Mode Swipe / Split-Screen"
+          id="btn-swipe-tool"><i class="fas fa-columns"></i></button>
+        <button class="tool-white-btn" data-i18n-title="tooltip_info" title="Informasi & Metodologi"
+          id="btn-map-info"><i class="fas fa-info"></i></button>
+        <!-- Pixel Inspector Button -->
+        <button class="tool-white-btn" data-i18n-title="tooltip_pixel_inspector" title="Pixel Inspector (Inspeksi Nilai Piksel)"
+          id="btn-pixel-inspector"><i class="fas fa-eye-dropper"></i></button>
+      </div>
+
+      <!-- Toolbar Komparasi Swipe / Split-Screen -->
+      <div class="swipe-floating-toolbar" id="swipe-toolbar" style="display: none;">
+        <div class="swipe-toolbar-content">
+          <span class="swipe-badge"><i class="fas fa-columns"></i> <span data-i18n="swipe_title">Komparasi Split-Screen</span></span>
+          
+          <div class="swipe-select-group">
+            <label for="swipe-left-select" data-i18n="swipe_left_lbl">Sisi Kiri:</label>
+            <select id="swipe-left-select" class="swipe-select">
+              <option value="temporaryHabitat" selected>Temporary Potential Habitat</option>
+              <option value="habitat">Habitat Suitability</option>
+              <option value="ike">Ecological Vulnerability (IVE)</option>
+              <option value="airQuality">Air Pollution Vulnerability</option>
+              <option value="getisOrd">Getis-Ord Gi* (Hotspot)</option>
+              <option value="none">Hanya Basemap</option>
+            </select>
+          </div>
+
+          <div class="swipe-icon-divider"><i class="fas fa-arrows-alt-h"></i></div>
+
+          <div class="swipe-select-group">
+            <label for="swipe-right-select" data-i18n="swipe_right_lbl">Sisi Kanan:</label>
+            <select id="swipe-right-select" class="swipe-select">
+              <option value="habitat" selected>Habitat Suitability</option>
+              <option value="temporaryHabitat">Temporary Potential Habitat</option>
+              <option value="ike">Ecological Vulnerability (IVE)</option>
+              <option value="airQuality">Air Pollution Vulnerability</option>
+              <option value="getisOrd">Getis-Ord Gi* (Hotspot)</option>
+              <option value="none">Hanya Basemap</option>
+            </select>
+          </div>
+
+          <button class="swipe-close-btn" id="btn-close-swipe" title="Tutup Mode Swipe">&times;</button>
+        </div>
+      </div>
+
+      <!-- Pembatas Geser Vertikal (Swipe Divider Line) -->
+      <div class="swipe-divider" id="swipe-divider" style="display: none; left: 50%;">
+        <div class="swipe-handle" id="swipe-handle" title="Geser ke Kiri/Kanan">
+          <i class="fas fa-arrows-alt-h"></i>
+        </div>
+      </div>
+
+      <!-- Panel Pengukuran Jarak & Luas Poligon -->
+      <div class="measure-floating-panel" id="measure-panel" style="display: none;">
+        <div class="measure-panel-header">
+          <span class="measure-panel-title">
+            <i class="fas fa-ruler-combined" style="color: var(--primary); margin-right: 6px;"></i>
+            <span data-i18n="measure_title">Alat Ukur Geospasial</span>
+          </span>
+          <button class="measure-close-btn" id="btn-close-measure" title="Tutup">&times;</button>
+        </div>
+
+        <div class="measure-panel-body">
+          <div class="measure-mode-buttons">
+            <button class="measure-mode-btn" id="btn-mode-distance">
+              <i class="fas fa-ruler"></i>
+              <span data-i18n="measure_dist_btn">Jarak (m/km)</span>
+            </button>
+            <button class="measure-mode-btn" id="btn-mode-area">
+              <i class="fas fa-draw-polygon"></i>
+              <span data-i18n="measure_area_btn">Luas (m²/ha)</span>
+            </button>
+          </div>
+
+          <div class="measure-info-card">
+            <div class="measure-instructions" id="measure-instruction" data-i18n="measure_instruction_default">
+              Pilih mode pengukuran (Jarak atau Luas) di atas.
+            </div>
+
+            <div class="measure-result-display" id="measure-result-box" style="display: none;">
+              <div class="measure-result-label" id="measure-result-label">Jarak Total:</div>
+              <div class="measure-result-value" id="measure-result-value">0 m</div>
+            </div>
+          </div>
+
+          <div class="measure-footer-actions">
+            <button class="measure-action-btn btn-danger" id="btn-measure-clear" disabled>
+              <i class="fas fa-trash-alt"></i> <span data-i18n="measure_clear">Hapus</span>
+            </button>
+            <button class="measure-action-btn btn-finish" id="btn-measure-finish" style="display: none;">
+              <i class="fas fa-check"></i> <span data-i18n="measure_finish">Selesai</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Legenda Peta Dinamis (Pojok Kiri Bawah) -->
+      <div class="map-legend-floating" id="map-legend"></div>
+
+      <!-- Modal Informasi Metodologi -->
+      <div class="map-modal-overlay" id="map-info-modal">
+        <div class="map-modal-box">
+          <div class="map-modal-header">
+            <h4 data-i18n="modal_title">Informasi Metodologi & Sumber Data</h4>
+            <button class="modal-close-btn" id="btn-close-modal"><i class="fas fa-times"></i></button>
+          </div>
+          <div class="map-modal-content">
+            <p><strong data-i18n="modal_p1_strong">Judul Penelitian:</strong><span data-i18n="modal_p1_text"> MAWAS:
+                Cloud-Based Geospatial Modeling for Orangutan Safe Habitat Prioritization under Fire and Transboundary
+                Haze in Kalimantan.</span></p>
+            <p><strong data-i18n="modal_p2_strong">Periode Analisis:</strong><span data-i18n="modal_p2_text"> 1 Mei – 30
+                Oktober 2019 (Puncak El Niño & Kebakaran Gambut Kalimantan).</span></p>
+            <ul>
+              <li><strong data-i18n="modal_li1_strong">Temporary Potential Habitat:</strong><span
+                  data-i18n="modal_li1_text"> Integrasi spasial multikriteria antara kesesuaian biofisik habitat,
+                  kerentanan ekologi gambut, dan paparan polutan kabut asap.</span></li>
+              <li><strong data-i18n="modal_li2_strong">Ecological Vulnerability Index (IVE):</strong><span
+                  data-i18n="modal_li2_text"> Diturunkan dari selisih Normalized Burn Ratio (dNBR) Landsat 8/Sentinel-2
+                  dan Enhanced Vegetation Index (EVI).</span></li>
+              <li><strong data-i18n="modal_li3_strong">Air Pollution Vulnerability:</strong><span
+                  data-i18n="modal_li3_text"> Paparan partikulat aerosol PM2.5 dari sensor Sentinel-5P dan MODIS.</span>
+              </li>
+              <li><strong data-i18n="modal_li4_strong">Habitat Suitability:</strong><span data-i18n="modal_li4_text">
+                  Pemodelan Machine Learning MaxEnt berbasis tutupan kanopi hutan dan jarak dari sungai/tepian
+                  hutan.</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAP FEATURE Sidebar Panel (Kanan) -->
+    <aside class="map-feature-sidebar">
+
+      <!-- 1. Deskripsi Peta -->
+      <div class="map-desc-section">
+        <h3 class="map-desc-header" data-i18n="map_desc_header">MAWAS WebGIS Kalimantan</h3>
+        <p class="map-desc-body" data-i18n="map_desc_body">
+          Peta interaktif ini menyajikan pemodelan kesesuaian dan prioritisasi habitat sementara orangutan Kalimantan
+          (<em>Pongo pygmaeus</em>) berbasis komputasi awan Google Earth Engine. Pemodelan mengintegrasikan variabel
+          biofisik habitat (MaxEnt), Indeks Kerentanan Ekologi gambut (IVE), serta paparan kabut asap karhutla (PM2.5)
+          periode Mei – Oktober 2019.
+        </p>
+      </div>
+
+      <!-- Garis Batas Pemisah -->
+      <div class="section-divider"></div>
+
+      <!-- 2. Seksi MAP FEATURE (Sinkron dengan GEE Layers) -->
+      <h2 class="map-feature-title" data-i18n="map_feature_title">MAP FEATURE</h2>
+
+      <div class="feature-list">
+
+        <!-- 1. Layer Hasil Kesesuaian (Temporary Potential Habitat) -->
+        <div class="feature-item">
+          <label class="clean-switch">
+            <input type="checkbox" id="layer-temporary-habitat" checked>
+            <span class="clean-slider"></span>
+          </label>
+          <div class="feature-info">
+            <div class="feature-name" data-i18n="layer_temp_name">Temporary Potential Habitat</div>
+            <div class="feature-desc" data-i18n="layer_temp_desc">Hasil overlay spasial variabel habitat, IVE, dan polutan udara</div>
+          </div>
+        </div>
+
+        <!-- 2. IKE Kalimantan 2019 (Ecological Vulnerability Index (IVE)) -->
+        <div class="feature-item">
+          <label class="clean-switch">
+            <input type="checkbox" id="layer-ike">
+            <span class="clean-slider"></span>
+          </label>
+          <div class="feature-info">
+            <div class="feature-name" data-i18n="layer_ive_name">Ecological Vulnerability Index (IVE)</div>
+            <div class="feature-desc" data-i18n="layer_ive_desc">Kerentanan ekologi gambut berbasis dNBR dan EVI</div>
+          </div>
+        </div>
+
+        <!-- 3. Air Quality (Air Pollution Vulnerability) -->
+        <div class="feature-item">
+          <label class="clean-switch">
+            <input type="checkbox" id="layer-air-pollution">
+            <span class="clean-slider"></span>
+          </label>
+          <div class="feature-info">
+            <div class="feature-name" data-i18n="layer_air_name">Air Pollution Vulnerability</div>
+            <div class="feature-desc" data-i18n="layer_air_desc">Paparan polutan PM2.5 dan sebaran kabut asap</div>
+          </div>
+        </div>
+
+        <!-- 4. Variabel Habitat (Habitat Suitability) -->
+        <div class="feature-item">
+          <label class="clean-switch">
+            <input type="checkbox" id="layer-habitat-suitability">
+            <span class="clean-slider"></span>
+          </label>
+          <div class="feature-info">
+            <div class="feature-name" data-i18n="layer_habitat_name">Habitat Suitability</div>
+            <div class="feature-desc" data-i18n="layer_habitat_desc">Kesesuaian biofisik habitat orangutan berbasis MaxEnt</div>
+          </div>
+        </div>
+
+        <!-- 5. Getis-Ord Gi* Z-Score (Hotspot Analysis) -->
+        <div class="feature-item">
+          <label class="clean-switch">
+            <input type="checkbox" id="layer-getis-ord">
+            <span class="clean-slider"></span>
+          </label>
+          <div class="feature-info">
+            <div class="feature-name" data-i18n="layer_getis_name">Getis-Ord Gi* (Hotspot)</div>
+            <div class="feature-desc" data-i18n="layer_getis_desc">Analisis klaster spasial hotspot & coldspot habitat orangutan</div>
+          </div>
+        </div>
+
+        <!-- Garis Batas -->
+        <div class="feature-divider"></div>
+
+        <!-- 3. Seksi BASEMAPS (4 Basemap Sesuai Gambar Contoh) -->
+        <div class="basemap-group-title" data-i18n="basemaps_title">BASEMAPS</div>
+
+        <!-- Basemap 1: Google Roadmap -->
+        <div class="feature-item">
+          <label class="clean-switch">
+            <input type="radio" name="basemap" id="bm-roadmap" checked>
+            <span class="clean-slider"></span>
+          </label>
+          <div class="feature-info">
+            <div class="feature-name" data-i18n="bm_roadmap_name">Google Roadmap</div>
+            <div class="feature-desc" data-i18n="bm_roadmap_desc">Peta jalan standar, label, dan topografi</div>
+          </div>
+        </div>
+
+        <!-- Basemap 2: Google Satellite -->
+        <div class="feature-item">
+          <label class="clean-switch">
+            <input type="radio" name="basemap" id="bm-satellite">
+            <span class="clean-slider"></span>
+          </label>
+          <div class="feature-info">
+            <div class="feature-name" data-i18n="bm_satellite_name">Google Satellite</div>
+            <div class="feature-desc" data-i18n="bm_satellite_desc">Citra satelit resolusi tinggi dan hibrida</div>
+          </div>
+        </div>
+
+        <!-- Basemap 3: Dark Mode -->
+        <div class="feature-item">
+          <label class="clean-switch">
+            <input type="radio" name="basemap" id="bm-dark">
+            <span class="clean-slider"></span>
+          </label>
+          <div class="feature-info">
+            <div class="feature-name" data-i18n="bm_dark_name">Dark Mode</div>
+            <div class="feature-desc" data-i18n="bm_dark_desc">Peta latar tema gelap untuk kontras data tinggi</div>
+          </div>
+        </div>
+
+        <!-- Basemap 4: Clean Map -->
+        <div class="feature-item">
+          <label class="clean-switch">
+            <input type="radio" name="basemap" id="bm-clean">
+            <span class="clean-slider"></span>
+          </label>
+          <div class="feature-info">
+            <div class="feature-name" data-i18n="bm_clean_name">Clean Map</div>
+            <div class="feature-desc" data-i18n="bm_clean_desc">Peta minimalis bersih tanpa teks dan label</div>
+          </div>
+        </div>
+
+        <!-- Garis Batas -->
+        <div class="feature-divider"></div>
+
+        <!-- 4. Peta Inset (Zoom-Out Regional & Tersinkronisasi Basemap) -->
+        <div class="basemap-group-title" data-i18n="inset_title">Peta Inset</div>
+        <div class="inset-map-box">
+          <div class="inset-map-viewport" id="mini-inset-map">
+            <!-- Fallback Static Satellite Image if Offline -->
+            <img src="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/3/4/6"
+              onerror="this.onerror=null; this.src='assets/images/mawas-banner.jpg';" class="inset-satellite-bg"
+              data-i18n-alt="inset_alt" alt="Peta Inset">
+            <div class="inset-extent-box"></div>
+          </div>
+        </div>
+
+      </div>
+    </aside>
+
+  </main>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <!-- Multi-Language Translator Engine -->
+  <script src="js/i18n.js"></script>
+
+  <!-- Pixel Inspector Content & Logic -->
+  <script src="js/pixel-raster-data.js"></script>
+  <script src="js/pixel-inspector-content.js"></script>
+  <script src="js/pixel-inspector.js"></script>
+
+  <!-- Load Config & WebGIS Map Controller -->
+  <script src="js/config.js"></script>
+  <script src="js/map.js"></script>
+</body>
+
+</html>

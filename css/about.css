@@ -1,0 +1,510 @@
+/* ==========================================================================
+   MAWAS About Page Stylesheet (css/about.css)
+   Bespoke, asymmetric, editorial layout (No generic card wrappers)
+   ========================================================================== */
+
+/* 1. Global Page Scroll & Layout */
+html,
+body {
+  height: auto !important;
+  min-height: 100%;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  background-color: var(--bg-dashboard, #f8fafc);
+  color: var(--text-dark, #1f2937);
+  font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+:root {
+  --about-primary: #c2410c;
+  --about-primary-hover: #9a3412;
+  --about-accent: #ea580c;
+  --about-border-subtle: #e2e8f0;
+}
+
+/* About Fullscreen Wrapper */
+.about-fullscreen-wrapper {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 32px;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+/* ==========================================================================
+   2. Asymmetric Section Grid (28% Left Meta | 72% Right Content)
+   ========================================================================== */
+.about-row-section {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 56px;
+  align-items: flex-start;
+  padding: 64px 0;
+  border-bottom: 1px solid var(--about-border-subtle);
+  width: 100%;
+  box-sizing: border-box;
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.about-section-last {
+  border-bottom: none;
+  padding-bottom: 80px;
+}
+
+/* Left Column: Section Title & Lead */
+.about-col-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-sizing: border-box;
+}
+
+.about-sec-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+  text-align: left;
+}
+
+.about-sec-lead {
+  font-size: 0.92rem;
+  color: #64748b;
+  line-height: 1.62;
+  margin: 0;
+  text-align: left;
+  max-width: 68ch;
+}
+
+/* Right Column: Main Content Container */
+.about-col-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* ==========================================================================
+   3. Section 1: Our Team (Tim Kami) - Horizontal Row
+   ========================================================================== */
+.team-members-row,
+.about-team-grid {
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 28px;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.team-member-item {
+  flex: 0 0 135px;
+  width: 135px;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  text-align: center !important;
+  padding: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.team-photo-wrap {
+  width: 125px;
+  height: 125px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #ffffff;
+  position: relative;
+  box-shadow: 0 0 0 3px var(--about-accent), 0 4px 12px rgba(0, 0, 0, 0.06);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.25s ease;
+  flex-shrink: 0;
+}
+
+.team-photo-wrap:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 0 3px var(--about-primary), 0 8px 20px rgba(194, 65, 12, 0.22);
+}
+
+.team-photo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+/* Naura photo alignment */
+.team-photo-img.photo-naura {
+  transform: scale(1.16) translateY(-4.5%);
+  transform-origin: center center;
+}
+
+.team-name {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #1e293b;
+  text-align: center !important;
+  line-height: 1.35;
+  margin: 10px 0 0 0;
+  max-width: 135px;
+}
+
+/* ==========================================================================
+   4. Section 2: Project Background (Latar Belakang Proyek)
+   ========================================================================== */
+.about-official-subtitle {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: var(--about-primary);
+  line-height: 1.45;
+  margin: 0 0 16px 0;
+  max-width: 68ch;
+  text-align: left;
+}
+
+.about-prose-body {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.about-prose-p {
+  font-size: 0.95rem;
+  color: #475569;
+  line-height: 1.72;
+  margin: 0 0 14px 0;
+  max-width: 68ch;
+  text-align: left;
+}
+
+.about-prose-p:last-child {
+  margin-bottom: 0;
+}
+
+.about-btn-pipeline {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: 10px;
+  padding: 10px 20px;
+  background: var(--about-primary);
+  color: #ffffff;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 600;
+  border-radius: 6px;
+  text-decoration: none;
+  box-shadow: 0 2px 4px rgba(194, 65, 12, 0.2);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  margin-top: 4px;
+}
+
+.about-btn-pipeline:hover {
+  background: var(--about-primary-hover);
+  box-shadow: 0 6px 16px rgba(194, 65, 12, 0.35);
+  transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   5. Section 3: SDGs Contribution (Kontribusi SDGs - Baris Sejajar)
+   ========================================================================== */
+.about-sdgs-list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 68ch;
+}
+
+.about-sdg-row {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--about-border-subtle);
+  box-sizing: border-box;
+}
+
+.about-sdg-row:first-child {
+  padding-top: 0;
+}
+
+.about-sdg-row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.sdg-logo-wrap {
+  width: 80px;
+  height: 80px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sdg-logo-img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  border-radius: 6px;
+  display: block;
+}
+
+.sdg-info-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: left;
+}
+
+.sdg-row-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0;
+  line-height: 1.35;
+  text-align: left;
+}
+
+.sdg-row-desc {
+  font-size: 0.92rem;
+  color: #475569;
+  line-height: 1.55;
+  margin: 0;
+  text-align: left;
+}
+
+/* ==========================================================================
+   6. Section 4: Supported by + Competition (Strip Terpadu)
+   ========================================================================== */
+.about-affiliation-strip {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+  padding: 4px 0 16px 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.affiliation-subgroup {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.affiliation-left {
+  flex: 0 0 auto;
+}
+
+.affiliation-divider {
+  width: 1px;
+  align-self: stretch;
+  background: var(--about-border-subtle);
+  margin: 0 44px;
+  flex-shrink: 0;
+}
+
+.affiliation-right {
+  flex: 1;
+}
+
+.affiliation-label {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin: 0 0 2px 0;
+  text-align: left;
+}
+
+.affiliation-item {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.affiliation-logo {
+  height: 74px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.05));
+  transition: transform 0.2s ease;
+}
+
+.logo-ugm {
+  height: 80px;
+}
+
+.logo-big {
+  height: 82px;
+}
+
+.logo-agc {
+  height: 64px;
+}
+
+.affiliation-logo:hover {
+  transform: translateY(-2px);
+}
+
+.competition-logos-row {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.competition-summary-desc {
+  font-size: 0.92rem;
+  color: #475569;
+  line-height: 1.65;
+  margin: 12px 0 0 0;
+  max-width: 58ch;
+  text-align: left;
+}
+
+/* ==========================================================================
+   7. Responsive Breakpoints (1366, 900, 768, 640, 390 px)
+   ========================================================================== */
+@media (max-width: 900px) {
+  .about-row-section {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 48px 0;
+  }
+
+  .about-col-meta {
+    gap: 6px;
+  }
+
+  .about-sec-title {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-fullscreen-wrapper {
+    padding: 0 20px;
+  }
+
+  .about-row-section {
+    padding: 42px 0;
+  }
+
+  .team-members-row {
+    gap: 20px;
+  }
+
+  .team-member-item {
+    flex: 0 0 130px;
+    width: 130px;
+  }
+
+  .team-photo-wrap {
+    width: 110px;
+    height: 110px;
+  }
+}
+
+@media (max-width: 640px) {
+  .about-affiliation-strip {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .affiliation-divider {
+    width: 100%;
+    height: 1px;
+    margin: 8px 0;
+  }
+
+  .about-sdg-row {
+    gap: 16px;
+  }
+
+  .sdg-logo-wrap {
+    width: 64px;
+    height: 64px;
+  }
+
+  .sdg-logo-img {
+    width: 64px;
+    height: 64px;
+  }
+}
+
+@media (max-width: 390px) {
+  .about-fullscreen-wrapper {
+    padding: 0 16px;
+  }
+
+  .team-members-row {
+    gap: 16px;
+  }
+
+  .team-member-item {
+    flex: 0 0 120px;
+    width: 120px;
+  }
+
+  .team-photo-wrap {
+    width: 100px;
+    height: 100px;
+  }
+
+  .team-name {
+    font-size: 0.82rem;
+  }
+
+  .competition-logos-row {
+    gap: 16px;
+  }
+
+  .affiliation-logo {
+    height: 60px;
+  }
+
+  .logo-ugm {
+    height: 66px;
+  }
+
+  .logo-big {
+    height: 68px;
+  }
+
+  .logo-agc {
+    height: 52px;
+  }
+}
+
+/* Prefers Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

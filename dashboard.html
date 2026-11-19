@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | MAWAS Geospatial Platform</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Core & Dashboard Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+</head>
+
+<body>
+
+  <!-- Minimalist Navbar (JagaGajah Style) -->
+  <nav class="site-nav">
+    <a href="index.html" class="nav-brand">MAWAS</a>
+
+    <div class="nav-right-container">
+      <ul class="nav-menu">
+        <li><a href="index.html" data-i18n="nav_home">Home</a></li>
+        <li><a href="peta.html" data-i18n="nav_maps">Maps</a></li>
+        <li class="active"><a href="dashboard.html" data-i18n="nav_dashboard">Dashboard</a></li>
+        <li><a href="pipeline.html" data-i18n="nav_pipeline">Pipeline</a></li>
+        <li><a href="about.html" data-i18n="nav_about">About</a></li>
+      </ul>
+
+      <!-- Language Switcher (ID / EN) -->
+      <div class="lang-switch-box">
+        <button class="lang-btn active" id="btn-lang-id" data-lang="id" title="Bahasa Indonesia">ID</button>
+        <span class="lang-divider">/</span>
+        <button class="lang-btn" id="btn-lang-en" data-lang="en" title="English">EN</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Dashboard Container (Vertical Scrollable, Clean Uniform Spacing) -->
+  <main class="dash-fullscreen-wrapper">
+
+    <!-- Top Header Row -->
+    <div class="dash-header-row">
+      <div class="dash-header-left">
+        <h1 data-i18n="dash_header_title">MAWAS Analytics & Monitoring Dashboard</h1>
+        <p data-i18n="dash_header_subtitle">Pusat Komando Analisis Spasiotemporal Kesesuaian Habitat Orangutan
+          Kalimantan (Mei - Oktober 2019)</p>
+      </div>
+    </div>
+
+    <!-- Executive KPI Ribbon (Tableau Metric Tiles) -->
+    <div class="dash-kpis">
+      <div class="kpi-tile">
+        <div class="kpi-tile-title" data-i18n="dash_kpi_1_label">Habitat Potensial Teridentifikasi</div>
+        <div class="kpi-tile-value" style="color: var(--primary);" data-i18n="dash_kpi_1_val">1.40 Juta Ha</div>
+        <div class="kpi-tile-sub" data-i18n="dash_kpi_1_sub">Kesesuaian Biofisik MaxEnt (P ≥ 0.40)</div>
+      </div>
+
+      <div class="kpi-tile">
+        <div class="kpi-tile-title" data-i18n="dash_kpi_2_label">Rata-Rata Kerentanan Gambut (IVE)</div>
+        <div class="kpi-tile-value" style="color: #ea580c;" data-i18n="dash_kpi_2_val">0.50 <span style="font-size: 0.85rem; font-weight: 500;">/
+            1.0</span></div>
+        <div class="kpi-tile-sub" data-i18n="dash_kpi_2_sub">23.8% Kubah Gambut Kategori Kritis</div>
+      </div>
+
+      <div class="kpi-tile">
+        <div class="kpi-tile-title" data-i18n="dash_kpi_3_label">Titik Observasi Kehadiran</div>
+        <div class="kpi-tile-value" style="color: #0d9488;" data-i18n="dash_kpi_3_val">400 Titik</div>
+        <div class="kpi-tile-sub" data-i18n="dash_kpi_3_sub">Data Survei Sarang & Inventarisasi</div>
+      </div>
+
+      <div class="kpi-tile">
+        <div class="kpi-tile-title" data-i18n="dash_kpi_4_label">Hotspot Getis-Ord Gi*</div>
+        <div class="kpi-tile-value" style="color: #9a3412;" data-i18n="dash_kpi_4_val">27,7%</div>
+        <div class="kpi-tile-sub" data-i18n="dash_kpi_4_sub">Klaster High-High Signifikan</div>
+      </div>
+    </div>
+
+    <!-- 1. Empat Kartu Terpisah (Grid 2 Kolom di Desktop, 1 Kolom di Ponsel) -->
+    <div class="dash-four-grid">
+
+      <!-- Card 1: Titik Kehadiran Orangutan -->
+      <section class="dash-interactive-card" data-item-key="kehadiran">
+        <div class="card-header-row">
+          <div class="card-header-title" data-i18n="dash_card_kehadiran_title">Titik Kehadiran Orangutan</div>
+        </div>
+
+        <div class="dash-media-box">
+          <img class="dash-media-img" src="Dashboard/OrangUtan Kehadiran.png" alt="Titik Kehadiran Orangutan Kalimantan">
+        </div>
+
+        <div class="card-caption-text" data-i18n="dash_card_kehadiran_caption">
+          Peta sebaran spasial titik perjumpaan dan observasi lapangan orangutan Kalimantan (Pongo pygmaeus) sebagai data primer kehadiran.
+        </div>
+      </section>
+
+      <!-- Card 2: Kualitas Udara & Arah Angin 10 m -->
+      <section class="dash-interactive-card" data-item-key="air_quality">
+        <div class="card-header-row">
+          <div class="card-header-title" data-i18n="dash_card_air_title">Kualitas Udara & Arah Angin 10 M</div>
+        </div>
+
+        <div class="dash-media-box">
+          <img class="dash-media-img" src="Dashboard/Peta Animasi Air Quality.gif" alt="Animasi Spasiotemporal Kualitas Udara & Arah Angin">
+        </div>
+
+        <div class="card-caption-text" data-i18n="dash_card_air_caption">
+          Animasi pergerakan partikulat kabut asap PM2.5/AOD dan vektor angin permukaan 10 meter selama puncak kebakaran hutan Kalimantan 2019.
+        </div>
+      </section>
+
+      <!-- Card 3: Klaster Getis-Ord Gi* -->
+      <section class="dash-interactive-card" data-item-key="getis_ord">
+        <div class="card-header-row">
+          <div class="card-header-title" data-i18n="dash_card_getis_title">Klaster Getis-Ord Gi*</div>
+        </div>
+
+        <div class="dash-media-box">
+          <img class="dash-media-img" src="Dashboard/Cluster GerdOrdGi Comparasion.png" alt="Analisis Klaster Getis-Ord Gi*">
+        </div>
+
+        <div class="card-caption-text" data-i18n="dash_card_getis_caption">
+          Perbandingan analisis klaster spasial Getis-Ord Gi* mengidentifikasi signifikansi statistik zona hotspot (High-High) dan coldspot (Low-Low).
+        </div>
+      </section>
+
+      <!-- Card 4: Peta Kesesuaian Habitat (MaxEnt) -->
+      <section class="dash-interactive-card" data-item-key="habitat_maxent">
+        <div class="card-header-row">
+          <div class="card-header-title" data-i18n="dash_card_habitat_title">Peta Kesesuaian Habitat (MaxEnt)</div>
+        </div>
+
+        <div class="dash-media-box">
+          <img class="dash-media-img" src="Dashboard/Hasil Maximum Entropy Orang Utan.png" alt="Peta Kesesuaian Habitat MaxEnt">
+        </div>
+
+        <div class="card-caption-text" data-i18n="dash_card_habitat_caption">
+          Permukaan probabilitas kontinu kesesuaian habitat biofisik orangutan hasil pemodelan Machine Learning Maximum Entropy.
+        </div>
+      </section>
+
+    </div>
+
+    <!-- 2. Satu Frame Lebar Penuh: Plot Maximum Entropy (MaxEnt) -->
+    <section class="dash-maxent-section">
+
+      <!-- MaxEnt Section Header -->
+      <div class="maxent-section-header">
+        <div class="maxent-section-title-row">
+          <div class="maxent-section-title">
+            <i class="fas fa-chart-area" style="color: var(--primary);"></i>
+            <span data-i18n="dash_maxent_title">Plot Diagnostik Maximum Entropy (MaxEnt)</span>
+          </div>
+        </div>
+        <p class="maxent-section-desc" data-i18n="dash_maxent_desc">
+          Eksplorasi mendalam metrik akurasi pemodelan spesies, validasi omission, uji kepentingan variabel, serta kurva respons prediktor lingkungan.
+        </p>
+      </div>
+
+      <!-- Sub-Bagian 1: Evaluasi Model (3 Cards Grid) -->
+      <div class="maxent-sub-wrapper">
+        <div class="maxent-sub-header">
+          <div class="maxent-sub-title">
+            <i class="fas fa-check-double" style="color: #0d9488;"></i>
+            <span data-i18n="dash_maxent_eval_title">1. Evaluasi & Validasi Kinerja Model</span>
+          </div>
+          <div class="maxent-sub-subtitle" data-i18n="dash_maxent_eval_sub">
+            Uji diskriminasi Receiver Operating Characteristic (ROC), laju omission, dan kepentingan variabel jackknife.
+          </div>
+        </div>
+
+        <div class="maxent-eval-grid">
+          <!-- Eval 1: Kurva ROC -->
+          <div class="maxent-thumb-card" data-item-key="eval_roc">
+            <div class="maxent-thumb-media">
+              <img class="maxent-thumb-img" src="Dashboard/Plot MaxEntropy/orangutan_roc.png" alt="Kurva ROC / AUC">
+            </div>
+            <div class="maxent-thumb-title" data-i18n="eval_roc_title">Kurva ROC & Nilai AUC</div>
+            <div class="maxent-thumb-caption" data-i18n="eval_roc_caption">Akurasi diskriminasi model prediksi terhadap background random (AUC &gt; 0.85).</div>
+          </div>
+
+          <!-- Eval 2: Omission Rate -->
+          <div class="maxent-thumb-card" data-item-key="eval_omission">
+            <div class="maxent-thumb-media">
+              <img class="maxent-thumb-img" src="Dashboard/Plot MaxEntropy/orangutan_omission.png" alt="Kurva Omission Rate">
+            </div>
+            <div class="maxent-thumb-title" data-i18n="eval_omission_title">Tingkat Omission & Area Prediksi</div>
+            <div class="maxent-thumb-caption" data-i18n="eval_omission_caption">Kalibrasi tingkat kelalaian data terhadap garis prediksi teoritis kumulatif.</div>
+          </div>
+
+          <!-- Eval 3: Jackknife -->
+          <div class="maxent-thumb-card" data-item-key="eval_jackknife">
+            <div class="maxent-thumb-media">
+              <img class="maxent-thumb-img" src="Dashboard/Perbandingan hasil MaxEnt.png" alt="Uji Jackknife Kontribusi Variabel">
+            </div>
+            <div class="maxent-thumb-title" data-i18n="eval_jackknife_title">Uji Jackknife Kontribusi Variabel</div>
+            <div class="maxent-thumb-caption" data-i18n="eval_jackknife_caption">Kuantifikasi perolehan latih (training gain) mandiri dan unik masing-masing variabel prediktor.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sub-Bagian 2: Kurva Respons Variabel Lingkungan (9 Thumbnails Grid) -->
+      <div class="maxent-sub-wrapper">
+        <div class="maxent-sub-header">
+          <div class="maxent-sub-title">
+            <i class="fas fa-bezier-curve" style="color: var(--primary);"></i>
+            <span data-i18n="dash_maxent_curves_title">2. Kurva Respons Variabel Lingkungan</span>
+          </div>
+          <div class="maxent-sub-subtitle" data-i18n="dash_maxent_curves_sub">
+            Pengaruh marginal setiap gradien biofisik, geomorfologi, iklim, dan antropogenik terhadap probabilitas habitat orangutan.
+          </div>
+        </div>
+
+        <div class="maxent-curves-grid">
+
+          <!-- Curve 1: Tree Canopy -->
+          <div class="maxent-thumb-card" data-item-key="curve_canopy">
+            <div class="maxent-thumb-media">
+              <img class="maxent-thumb-img" src="Dashboard/Plot MaxEntropy/orangutan_canopy_1km_only.png" alt="Kurva Kerapatan Kanopi Pohon">
+            </div>
+            <div class="maxent-thumb-title" data-i18n="curve_canopy_title">Kerapatan Kanopi (Tree Canopy)</div>
+            <div class="maxent-thumb-caption" data-i18n="curve_canopy_caption">Kesesuaian meningkat tajam pada tutupan kanopi lebat &gt; 70%.</div>
+          </div>
+
+          <!-- Curve 2: DEM Elevation -->
+          <div class="maxent-thumb-card" data-item-key="curve_dem">
+            <div class="maxent-thumb-media">
+              <img class="maxent-thumb-img" src="Dashboard/Plot MaxEntropy/orangutan_dem_1km_only.png" alt="Kurva Elevasi Permukaan">
+            </div>
+            <div class="maxent-thumb-title" data-i18n="curve_dem_title">Elevasi / Ketinggian (DEM)</div>
+            <div class="maxent-thumb-caption" data-i18n="curve_dem_caption">Preferensi kuat di dataran rendah &lt; 200 m dpl, menurun pada ketinggian &gt; 500 m.</div>
+          </div>
+
+          <!-- Curve 3: Distance to Forest -->
+          <div class="maxent-thumb-card" data-item-key="curve_d_hutan">
+            <div class="maxent-thumb-media">
+              <img class="maxent-thumb-img" src="Dashboard/Plot MaxEntropy/orangutan_d_hutan_1km_only.png" alt="Kurva Jarak ke Tepi Hutan">
+            </div>
+            <div class="maxent-thumb-title" data-i18n="curve_d_hutan_title">Jarak ke Tepi Hutan (Dist. to Forest)</div>
+            <div class="maxent-thumb-caption" data-i18n="curve_d_hutan_caption">Kesesuaian maksimum berada di dalam hutan dan merosot pada jarak &gt; 1 km.</div>
+          </div>
+
+          <!-- Curve 4: Distance to Road -->
+          <div class="maxent-thumb-card" data-item-key="curve_d_jalan">
+            <div class="maxent-thumb-media">
+              <img class="maxent-thumb-img" src="Dashboard/Plot MaxEntropy/orangutan_d_jalan_1km_only.png" alt="Kurva Jarak ke Jalan">
+            </div>
+            <div class="maxent-thumb-title" data-i18n="curve_d_jalan_title">Jarak ke Jaringan Jalan (Dist. to Road)</div>
+            <div class="maxent-thumb-caption" data-i18n="curve_d_jalan_caption">Kawasan di dekat koridor jalan dihindari akibat kebisingan dan ancaman perburuan.</div>
+          </div>
+
+          <!-- Curve 5: Distance to Settlement -->
+          <div class="maxent-thumb-card" data-item-key="curve_d_permukiman">
+            <div class="maxent-thumb-media">
+              <img class="maxent-thumb-img" src="Dashboard/Plot MaxEntropy/orangutan_d_permukiman_1km_only.png" alt="Kurva Jarak ke Pemukiman">
+            </div>
+            <div class="maxent-thumb-title" data-i18n="curve_d_permukiman_title">Jarak ke Permukiman (Dist. to Settlement)</div>
+            <div class="maxent-thumb-caption" data-i18n="curve_d_permukiman_caption">Pola penghindaran tegas terhadap pusat pemukiman penduduk untuk menghindari konflik.</div>
+          </div>
+
+          <!-- Curve 6: Distance to Major River -->
+          <div class="maxent-thumb-card" data-item-key="curve_d_sungai_besar">
+            <div class="maxent-thumb-media">
+              <img class="maxent-thumb-img" src="Dashboard/Plot MaxEntropy/orangutan_d_sungai_besar_1km_only.png" alt="Kurva Jarak ke Sungai Besar">
+            </div>
+            <div class="maxent-thumb-title" data-i18n="curve_d_sungai_besar_title">Jarak ke Sungai Besar (Major River)</div>
+            <div class="maxent-thumb-caption" data-i18n="curve_d_sungai_besar_caption">Sungai lebar bertindak sebagai rintangan biogeografis alami pemisah subspesies.</div>
+          </div>
+
+          <!-- Curve 7: Distance to Stream -->
+          <div class="maxent-thumb-card" data-item-key="curve_d_sungai_kecil">
+            <div class="maxent-thumb-media">
+              <img class="maxent-thumb-img" src="Dashboard/Plot MaxEntropy/orangutan_d_sungai_kecil_1km_only.png" alt="Kurva Jarak ke Anak Sungai">
+            </div>
+            <div class="maxent-thumb-title" data-i18n="curve_d_sungai_kecil_title">Jarak ke Anak Sungai (Tributaries)</div>
+            <div class="maxent-thumb-caption" data-i18n="curve_d_sungai_kecil_caption">Kesesuaian tinggi di sempadan anak sungai yang kaya kelembapan dan pohon pakan.</div>
+          </div>
+
+          <!-- Curve 8: Annual Rainfall -->
+          <div class="maxent-thumb-card" data-item-key="curve_hujan">
+            <div class="maxent-thumb-media">
+              <img class="maxent-thumb-img" src="Dashboard/Plot MaxEntropy/orangutan_hujan_1km.png" alt="Kurva Curah Hujan Tahunan">
+            </div>
+            <div class="maxent-thumb-title" data-i18n="curve_hujan_title">Curah Hujan (Rainfall)</div>
+            <div class="maxent-thumb-caption" data-i18n="curve_hujan_caption">Rentang optimal pada 2.500 – 3.800 mm/tahun mendukung produktivitas buah hutan.</div>
+          </div>
+
+          <!-- Curve 9: Topographic Slope -->
+          <div class="maxent-thumb-card" data-item-key="curve_slope">
+            <div class="maxent-thumb-media">
+              <img class="maxent-thumb-img" src="Dashboard/Plot MaxEntropy/orangutan_slope_1km_only.png" alt="Kurva Kemiringan Lereng">
+            </div>
+            <div class="maxent-thumb-title" data-i18n="curve_slope_title">Kemiringan Lereng (Topographic Slope)</div>
+            <div class="maxent-thumb-caption" data-i18n="curve_slope_caption">Preferensi topografi datar hingga landai (0° – 8°) dibandingkan lereng terjal.</div>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- Reusable Analytical Modal / Lightbox Component -->
+  <div class="dash-modal-backdrop" id="dash-modal" role="dialog" aria-modal="true" aria-labelledby="dash-modal-title">
+    <div class="dash-modal-dialog">
+      <div class="dash-modal-header">
+        <div class="dash-modal-title-group">
+          <h3 class="dash-modal-title" id="dash-modal-title" data-i18n="dash_modal_default_title">Analisis Geospasial MAWAS</h3>
+        </div>
+        <button class="dash-modal-close-btn" id="dash-modal-close" title="Tutup Modal (Esc)">&times;</button>
+      </div>
+
+      <div class="dash-modal-body">
+        <div class="dash-modal-img-container">
+          <img class="dash-modal-img" id="dash-modal-img" src="" alt="Detail Gambar Analisis Geospasial">
+          <div class="dash-modal-img-actions">
+            <a id="dash-modal-img-link" href="#" target="_blank" class="dash-modal-open-link">
+              <i class="fas fa-external-link-alt"></i> <span data-i18n="modal_view_full">Buka Gambar Resolusi Penuh</span>
+            </a>
+          </div>
+        </div>
+        <div class="dash-modal-desc-box" id="dash-modal-desc">
+          <!-- Analytical description dynamically inserted by js/dashboard.js -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Load Translation, Metadata & Controller Scripts -->
+  <script src="js/i18n.js"></script>
+  <script src="js/dashboard-content.js"></script>
+  <script src="js/dashboard.js"></script>
+  <script src="js/config.js"></script>
+</body>
+
+</html>

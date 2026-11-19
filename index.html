@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MAWAS | Protecting Habitat, Prioritizing Safe Havens</title>
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/chatbot.css">
+</head>
+<body>
+
+  <!-- Minimalist Navbar (JagaGajah Style) -->
+  <nav class="site-nav">
+    <a href="index.html" class="nav-brand">MAWAS</a>
+    
+    <div class="nav-right-container">
+      <ul class="nav-menu">
+        <li class="active"><a href="index.html" data-i18n="nav_home">Home</a></li>
+        <li><a href="peta.html" data-i18n="nav_maps">Maps</a></li>
+        <li><a href="dashboard.html" data-i18n="nav_dashboard">Dashboard</a></li>
+        <li><a href="pipeline.html" data-i18n="nav_pipeline">Pipeline</a></li>
+        <li><a href="about.html" data-i18n="nav_about">About</a></li>
+      </ul>
+
+      <!-- Language Switcher (ID / EN) -->
+      <div class="lang-switch-box">
+        <button class="lang-btn active" id="btn-lang-id" data-lang="id" title="Bahasa Indonesia">ID</button>
+        <span class="lang-divider">/</span>
+        <button class="lang-btn" id="btn-lang-en" data-lang="en" title="English">EN</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section with Foto Home/Home.jpg Background -->
+  <main class="hero-wrapper">
+    <div class="hero-box">
+      <h1 class="hero-title" data-i18n="home_subtitle">
+        Prioritisasi Habitat Aman Orangutan Kalimantan Berbasis Cloud Spasial
+      </h1>
+      <p class="hero-subtitle" data-i18n="home_desc">
+        Pemodelan komputasi awan Google Earth Engine untuk identifikasi dan prioritisasi habitat aman sementara bagi orangutan Kalimantan (Pongo pygmaeus) di bawah ancaman kebakaran hutan dan kabut asap lintas batas (Mei – Oktober 2019).
+      </p>
+
+      <!-- Get Started Button with Slide Right Animation (Opens in New Tab) -->
+      <a href="peta.html" target="_blank" class="btn-slide-right" id="btn-get-started" title="Buka Peta di Tab Baru">
+        <span data-i18n="home_btn_get_started">Buka Peta Interaktif</span>
+        <span class="btn-icon"><i class="fas fa-arrow-right"></i></span>
+      </a>
+
+    </div>
+  </main>
+
+  <!-- Translation Engine -->
+  <script src="js/i18n.js"></script>
+  <script src="js/config.js"></script>
+
+  <!-- Tanya MAWAS FAQ Widget (Index Only) -->
+  <script src="js/chatbot-faq.js"></script>
+  <script src="js/chatbot.js"></script>
+</body>
+</html>

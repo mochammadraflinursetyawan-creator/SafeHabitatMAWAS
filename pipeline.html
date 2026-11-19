@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-i18n="pipeline_page_title">MAWAS | Pipeline</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Core & Pipeline Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/pipeline.css?v=2">
+</head>
+
+<body>
+
+  <!-- Minimalist Navbar (JagaGajah Style) -->
+  <nav class="site-nav">
+    <a href="index.html" class="nav-brand">MAWAS</a>
+
+    <div class="nav-right-container">
+      <ul class="nav-menu">
+        <li><a href="index.html" data-i18n="nav_home">Home</a></li>
+        <li><a href="peta.html" data-i18n="nav_maps">Maps</a></li>
+        <li><a href="dashboard.html" data-i18n="nav_dashboard">Dashboard</a></li>
+        <li class="active"><a href="pipeline.html" data-i18n="nav_pipeline">Pipeline</a></li>
+        <li><a href="about.html" data-i18n="nav_about">About</a></li>
+      </ul>
+
+      <!-- Language Switcher (ID / EN) -->
+      <div class="lang-switch-box">
+        <button class="lang-btn active" id="btn-lang-id" data-lang="id" title="Bahasa Indonesia">ID</button>
+        <span class="lang-divider">/</span>
+        <button class="lang-btn" id="btn-lang-en" data-lang="en" title="English">EN</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Pipeline Main Layout -->
+  <main class="pipeline-fullscreen-wrapper">
+
+    <!-- Top Header Row -->
+    <div class="pipe-header-row">
+      <div class="pipe-header-left">
+        <h1 data-i18n="pipeline_header_title">Pipeline Analisis</h1>
+        <p data-i18n="pipeline_header_subtitle">Peta Jalur Pemodelan Spasiotemporal Habitat Orangutan Kalimantan</p>
+      </div>
+    </div>
+
+    <!-- Stage 1 Stats Bar (Three Big Metrics Side-by-Side) -->
+    <section class="stage-1-stats-bar" id="stage-1" data-stage="1" aria-label="Parameter & Persiapan Studi">
+      <button class="stat-unit-col" data-node-id="step_prep" title="Lihat detail persiapan">
+        <span class="stat-big-val" data-i18n="pipeline_stat_period_val">1 Mei – 30 Okt 2019</span>
+        <span class="stat-small-lbl" data-i18n="pipeline_stat_period_lbl">Periode Data</span>
+      </button>
+
+      <div class="stat-sep"></div>
+
+      <button class="stat-unit-col" data-node-id="step_prep" title="Lihat detail persiapan">
+        <span class="stat-big-val" data-i18n="pipeline_stat_unit_val">Piksel</span>
+        <span class="stat-small-lbl" data-i18n="pipeline_stat_unit_lbl">Unit Spasial</span>
+      </button>
+
+      <div class="stat-sep"></div>
+
+      <button class="stat-unit-col" data-node-id="step_prep" title="Lihat detail persiapan">
+        <span class="stat-big-val" data-i18n="pipeline_stat_platform_val">Google Earth Engine</span>
+        <span class="stat-small-lbl" data-i18n="pipeline_stat_platform_lbl">Platform Komputasi</span>
+      </button>
+    </section>
+
+    <!-- Toolbar: Play Tour + Status -->
+    <div class="pipe-toolbar">
+      <div class="pipe-toolbar-actions">
+        <button class="pipe-btn pipe-btn-primary" id="btn-play-pipeline" aria-label="Putar Tur Alur">
+          <i class="fas fa-play"></i> <span data-i18n="pipeline_play">Putar Pipeline</span>
+        </button>
+        <button class="pipe-btn pipe-btn-secondary" id="btn-pause-pipeline" style="display: none;" aria-label="Jeda Tur Alur">
+          <i class="fas fa-pause"></i> <span data-i18n="pipeline_pause">Jeda</span>
+        </button>
+        <button class="pipe-btn pipe-btn-secondary" id="btn-stop-pipeline" style="display: none;" aria-label="Reset Tur Alur">
+          <i class="fas fa-stop"></i> <span data-i18n="pipeline_stop">Reset</span>
+        </button>
+      </div>
+
+      <div class="pipe-status-pill" id="pipe-status-pill">
+        <i class="fas fa-info-circle"></i>
+        <span data-i18n="pipeline_status_idle">Klik stasiun pada peta untuk melihat detail langkah</span>
+      </div>
+    </div>
+
+    <!-- Two-Column Workspace: Left Metro Map Canvas + Right Detail Panel -->
+    <div class="pipeline-workspace" id="pipeline-workspace">
+
+      <!-- Left: Metro Map Canvas -->
+      <div class="metro-map-canvas" id="metro-map-canvas">
+
+        <!-- Stage Guide Labels on the Left Side of Map -->
+        <div class="stage-guide-rail">
+          <div class="stage-guide-tag active" data-stage="1" data-i18n="pipeline_stage1_lbl">1 Persiapan</div>
+          <div class="stage-guide-tag" data-stage="2" data-i18n="pipeline_stage2_lbl">2 Pengolahan Variabel</div>
+          <div class="stage-guide-tag" data-stage="3" data-i18n="pipeline_stage3_lbl">3 Sintesis</div>
+          <div class="stage-guide-tag" data-stage="4" data-i18n="pipeline_stage4_lbl">4 Analisis Akhir</div>
+        </div>
+
+        <!-- Dynamic SVG Connector Tracks Layer -->
+        <svg class="metro-svg-layer" id="metro-svg-layer" xmlns="http://www.w3.org/2000/svg"></svg>
+
+        <!-- The Metro Map Nodes Container -->
+        <div class="metro-nodes-container" id="metro-nodes-container">
+
+          <!-- ==========================================
+               STAGE 2: Three Parallel Colored Tracks
+               ========================================== -->
+          <div class="metro-stage-zone" id="stage-2" data-stage="2">
+            <div class="metro-stage-2-tracks">
+
+              <!-- Track 1: Habitat Suitability (Green) -->
+              <div class="metro-track-lane habitat">
+                <div class="metro-lane-header habitat">
+                  <span class="lane-title" data-i18n="pipeline_track_hab">Habitat Suitability</span>
+                </div>
+
+                <!-- Station 1: Habitat Input -->
+                <button class="metro-station" id="station-hab_input" data-node-id="step_hab_input" data-track="habitat" aria-expanded="false" aria-controls="detail-panel">
+                  <span class="metro-node-dot habitat"></span>
+                  <span class="metro-node-label" data-node-label="step_hab_input">Parameter Kesesuaian Habitat</span>
+                </button>
+
+                <!-- Station 2: Habitat Process -->
+                <button class="metro-station" id="station-hab_proc" data-node-id="step_hab_proc" data-track="habitat" aria-expanded="false" aria-controls="detail-panel">
+                  <span class="metro-node-dot habitat"></span>
+                  <span class="metro-node-label" data-node-label="step_hab_proc">Ekstraksi & Agregasi 2 Mingguan</span>
+                </button>
+
+                <!-- Station 3: Habitat Output (Ringed Terminal) -->
+                <button class="metro-station is-terminal" id="habitat" data-node-id="step_hab_out" data-track="habitat" aria-expanded="false" aria-controls="detail-panel">
+                  <span class="metro-node-dot habitat terminal"></span>
+                  <span class="metro-node-label" data-node-label="step_hab_out">Habitat Suitability Layer</span>
+                </button>
+              </div>
+
+              <!-- Track 2: Ecological Vulnerability (Amber) -->
+              <div class="metro-track-lane ike">
+                <div class="metro-lane-header ike">
+                  <span class="lane-title" data-i18n="pipeline_track_ike">Kerentanan Ekologis (IKE)</span>
+                </div>
+
+                <!-- Station 1: IKE Input -->
+                <button class="metro-station" id="station-ike_input" data-node-id="step_ike_input" data-track="ike" aria-expanded="false" aria-controls="detail-panel">
+                  <span class="metro-node-dot ike"></span>
+                  <span class="metro-node-label" data-node-label="step_ike_input">Input dNBR, EVI & Curah Hujan</span>
+                </button>
+
+                <!-- Station 2: IKE Process -->
+                <button class="metro-station" id="station-ike_proc" data-node-id="step_ike_proc" data-track="ike" aria-expanded="false" aria-controls="detail-panel">
+                  <span class="metro-node-dot ike"></span>
+                  <span class="metro-node-label" data-node-label="step_ike_proc">Pengolahan Spasiotemporal IKE</span>
+                </button>
+
+                <!-- Station 3: IKE Output (Ringed Terminal) -->
+                <button class="metro-station is-terminal" id="ike" data-node-id="step_ike_out" data-track="ike" aria-expanded="false" aria-controls="detail-panel">
+                  <span class="metro-node-dot ike terminal"></span>
+                  <span class="metro-node-label" data-node-label="step_ike_out">IKE Layer</span>
+                </button>
+              </div>
+
+              <!-- Track 3: Air Pollution (Purple) -->
+              <div class="metro-track-lane air">
+                <div class="metro-lane-header air">
+                  <span class="lane-title" data-i18n="pipeline_track_air">Polusi Udara</span>
+                </div>
+
+                <!-- Station 1: Air Input -->
+                <button class="metro-station" id="station-air_input" data-node-id="step_air_input" data-track="air" aria-expanded="false" aria-controls="detail-panel">
+                  <span class="metro-node-dot air"></span>
+                  <span class="metro-node-label" data-node-label="step_air_input">Input PM & Angin ECMWF</span>
+                </button>
+
+                <!-- Station 2: Air Process -->
+                <button class="metro-station" id="station-air_proc" data-node-id="step_air_proc" data-track="air" aria-expanded="false" aria-controls="detail-panel">
+                  <span class="metro-node-dot air"></span>
+                  <span class="metro-node-label" data-node-label="step_air_proc">Pemodelan Paparan 2 Mingguan</span>
+                </button>
+
+                <!-- Station 3: Air Output (Ringed Terminal) -->
+                <button class="metro-station is-terminal" id="air-pollution" data-node-id="step_air_out" data-track="air" aria-expanded="false" aria-controls="detail-panel">
+                  <span class="metro-node-dot air terminal"></span>
+                  <span class="metro-node-label" data-node-label="step_air_out">Air Pollution Exposure Layer</span>
+                </button>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- ==========================================
+               STAGE 3: Spatial Synthesis & Overlay
+               ========================================== -->
+          <div class="metro-stage-zone" id="stage-3" data-stage="3">
+            <div class="metro-stage-3-stack">
+
+              <!-- Interchange Station: Overlay -->
+              <button class="metro-station is-interchange" id="overlay" data-node-id="step_overlay" data-track="synthesis" aria-expanded="false" aria-controls="detail-panel">
+                <span class="metro-node-dot interchange"></span>
+                <span class="metro-node-label bold" data-node-label="step_overlay">Overlay (Habitat + IKE + Polusi Udara)</span>
+              </button>
+
+              <!-- Single intermediate line continues down to Temp Habitat -->
+              <button class="metro-station is-terminal" id="station-temp_hab_out" data-node-id="step_temp_hab_out" data-track="synthesis" aria-expanded="false" aria-controls="detail-panel">
+                <span class="metro-node-dot synthesis terminal"></span>
+                <span class="metro-node-label" data-node-label="step_temp_hab_out">Temporary Potential Habitat Layer</span>
+              </button>
+
+            </div>
+          </div>
+
+          <!-- ==========================================
+               STAGE 4: Final Analysis & Output
+               ========================================== -->
+          <div class="metro-stage-zone" id="stage-4" data-stage="4">
+            <div class="metro-stage-4-lane">
+
+              <!-- Station: Getis-Ord Gi* -->
+              <button class="metro-station" id="getis-ord" data-node-id="step_getis" data-track="final" aria-expanded="false" aria-controls="detail-panel">
+                <span class="metro-node-dot final"></span>
+                <span class="metro-node-label" data-node-label="step_getis">Getis-Ord Gi* Hotspot Analysis</span>
+              </button>
+
+              <!-- Station: Hotspot Map (Terminal) -->
+              <button class="metro-station is-terminal" id="station-hotspot_map" data-node-id="step_hotspot_map" data-track="final" aria-expanded="false" aria-controls="detail-panel">
+                <span class="metro-node-dot final terminal"></span>
+                <span class="metro-node-label" data-node-label="step_hotspot_map">Temporary Potential Habitat Hotspot Map</span>
+              </button>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Backdrop overlay for bottom sheet mode (mobile/tablet) -->
+      <div class="detail-panel-backdrop" id="detail-panel-backdrop"></div>
+
+      <!-- Right: Detail Panel (Sticky on Desktop >= 1100px, Bottom Sheet on Mobile < 1100px) -->
+      <aside class="detail-panel-container" id="detail-panel" role="region" aria-label="Detail Langkah Alur" tabindex="-1">
+        
+        <!-- Panel Header -->
+        <div class="panel-header">
+          <div class="panel-title-box">
+            <h2 class="panel-title" id="panel-title">Parameter Kesesuaian Habitat</h2>
+          </div>
+          <button class="panel-close-btn" id="panel-close-btn" data-i18n-title="pipeline_panel_close" title="Tutup Panel (Esc)">&times;</button>
+        </div>
+
+        <!-- Mode Toggle: Ringkas / Teknis -->
+        <div class="panel-mode-toggle">
+          <button class="panel-mode-btn active" data-mode="summary" data-i18n="pipeline_btn_summary">Ringkas</button>
+          <button class="panel-mode-btn" data-mode="tech" data-i18n="pipeline_btn_tech">Teknis</button>
+        </div>
+
+        <!-- Panel Body -->
+        <div class="panel-body">
+          
+          <!-- Narrative Description -->
+          <div class="panel-desc" id="panel-desc"></div>
+
+          <!-- Real Visual Container (if available) -->
+          <div class="panel-visual-box" id="panel-visual-box" style="display: none;">
+            <!-- Real Static Image Thumbnail -->
+            <img class="panel-visual-img" id="panel-visual-img" src="" alt="Visual Hasil Analisis" style="display: none;">
+
+            <!-- Air Quality Animated GIF Player -->
+            <div class="panel-gif-player" id="panel-gif-player" style="display: none;">
+              <img class="panel-gif-img" id="panel-gif-img" src="" alt="Animasi Spasiotemporal Kualitas Udara">
+              <canvas class="panel-gif-canvas" id="panel-gif-canvas"></canvas>
+              <div class="panel-gif-controls">
+                <button class="panel-gif-btn" id="btn-panel-gif">
+                  <i class="fas fa-play"></i> <span data-i18n="pipeline_gif_play">Putar Animasi</span>
+                </button>
+                <span class="panel-gif-status" id="panel-gif-status">Paused</span>
+              </div>
+            </div>
+
+            <!-- Overlay Simple 3-Layer Demo Formula -->
+            <div class="panel-overlay-demo" id="panel-overlay-demo" style="display: none;">
+              <div class="overlay-demo-heading" data-i18n="pipeline_overlay_demo_title">Diagram Sintesis Tiga Lapisan</div>
+              <div class="overlay-demo-formula">
+                <span class="formula-pill habitat">Habitat</span>
+                <span class="formula-sym">+</span>
+                <span class="formula-pill ike">IKE</span>
+                <span class="formula-sym">+</span>
+                <span class="formula-pill air">Polusi</span>
+                <span class="formula-sym">→</span>
+                <span class="formula-pill output">Refugia</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Data & Alat -->
+          <div class="panel-meta-row">
+            <span class="panel-meta-label" data-i18n="pipeline_lbl_data">Data & Alat:</span>
+            <span class="panel-meta-value" id="panel-data-tools"></span>
+          </div>
+
+          <!-- Keluaran -->
+          <div class="panel-meta-row">
+            <span class="panel-meta-label" data-i18n="pipeline_lbl_output">Keluaran:</span>
+            <span class="panel-meta-value" id="panel-output"></span>
+          </div>
+
+          <!-- View Results Link to Dashboard -->
+          <a href="dashboard.html" class="panel-view-btn" id="panel-view-btn" style="display: none;">
+            <i class="fas fa-external-link-alt"></i> <span data-i18n="pipeline_btn_view_results">Lihat Hasil di Dashboard</span>
+          </a>
+
+        </div>
+
+        <!-- Panel Footer Navigation (Previous / Next) -->
+        <div class="panel-footer-nav">
+          <button class="panel-nav-btn prev" id="btn-panel-prev">
+            <i class="fas fa-chevron-left"></i> <span data-i18n="pipeline_btn_prev">Sebelumnya</span>
+          </button>
+          <button class="panel-nav-btn next" id="btn-panel-next">
+            <span data-i18n="pipeline_btn_next">Berikutnya</span> <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
+
+      </aside>
+
+    </div>
+
+  </main>
+
+  <!-- Core Scripts -->
+  <script src="js/i18n.js"></script>
+  <script src="js/pipeline-content.js"></script>
+  <script src="js/pipeline.js"></script>
+</body>
+
+</html>
